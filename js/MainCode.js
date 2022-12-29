@@ -1753,6 +1753,8 @@
 
 		}
 
+		KeysUpdate();
+
 	}
 
 	function DrawAlphaText(){
@@ -1858,6 +1860,7 @@
 		
 		ctx.closePath();
 		ctx.restore();
+		
 	}
 	
 	function ListLevel(ListCopy,Window){ 
@@ -1925,6 +1928,7 @@
 		
 		ctx.closePath();
 		ctx.restore();
+		
 	}
 	
 	function ListAchiv(ListCopy,Window){ 
@@ -1983,6 +1987,7 @@
 		
 		ctx.closePath();
 		ctx.restore();
+
 	}
 
 	// Window/Inter/Lists System Functions
@@ -6821,4 +6826,38 @@
 	
 		}
 		
+	}
+
+	// ------------------------ Keyboard List -------------------------
+
+	function KeysUpdate(){
+
+		var MoveY = 0;
+
+		if(Keyboard.key.down) MoveY = 40;
+		else if(Keyboard.key.up) MoveY = -40;
+
+		if(MainData.OnWindow && !MainData.WindowMove && MoveY != 0){
+               
+			var ActWin = WindowList[WindowDrawList[WindowDrawList.length-1]];
+				
+			if(ActWin.Window.List){
+
+				var ObjectList = ActWin.Window;
+				
+				if(ObjectList.ListSpecial.DifferenceY-MoveY < 0 && ActWin.CopyList.length > ObjectList.List.StopListX){
+
+					if(Math.abs(ObjectList.ListSpecial.DifferenceY-MoveY) < ObjectList.ListSpecial.StopList)
+						ObjectList.ListSpecial.DifferenceY -= MoveY;
+					else 
+						ObjectList.ListSpecial.DifferenceY = -ObjectList.ListSpecial.StopList;
+				
+				} else ObjectList.ListSpecial.DifferenceY = 0;
+				
+				ButtonClean();
+			
+			}
+				
+		}
+
 	}
