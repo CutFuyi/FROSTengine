@@ -648,7 +648,7 @@
                 "Mobile": false,
                 "StartWindow": 0, // 20
                 "Orientation": "Landscape", //Landscape Portrait
-                "AppVersion": "1.0.0",
+                "AppVersion": "1.0.1",
                 "ScreenType": "16:9", // 16:9 liczy jako 16:8
                 "BlockRClick": true,
                 "SystemPaused": false,
@@ -8572,7 +8572,7 @@
                     51: ["Test tekstów z kilkoma wierszami","1. Wiersz Pierwszy", "2. Wiersz Drugi"], 
                     52: ["Otwarty Świat Ver 0.80"],                 
                     53: ["Visual Novel Ver 0.90"],                  
-                    54: [["Pulpit / Okna Ver 1.20"],["Pulpit / Okna Mobilne Ver 0.70"]],  
+                    54: [["Pulpit / Okna Ver 1.21"],["Pulpit / Okna Mobilne Ver 0.70"]],  
                     55: ["Zamknij Aplikacje"],               
                     56: ["Opis Wieży Nr 3"],               
                     57: ["Brak Materiałów"],             
@@ -8815,7 +8815,7 @@
                     51: ["Multi-line text test", "1st Line First", "2nd Line Second"], 
                     52: ["Open World Ver 0.80"],                 
                     53: ["Visual Novel Ver 0.90"],                  
-                    54: [["Desktop / Windows Ver 1.20"],["Desktop / Windows Mobile Ver 0.70"]],  
+                    54: [["Desktop / Windows Ver 1.21"],["Desktop / Windows Mobile Ver 0.70"]],  
                     55: ["Close Applications"], 
                     60: ["Test Alert"],   
                     61: ["Open Web Page"],                   
