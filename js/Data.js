@@ -649,6 +649,7 @@
                 "StartWindow": 0, // 20
                 "Orientation": "Landscape", //Landscape Portrait
                 "AppVersion": "1.0.1",
+                "EngineVersion": "1.0.1",
                 "ScreenType": "16:9", // 16:9 liczy jako 16:8
                 "BlockRClick": true,
                 "SystemPaused": false,
