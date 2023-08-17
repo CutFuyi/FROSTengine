@@ -3493,7 +3493,7 @@
 
 		var EpX = Camera3D.cX, 
 			EpY = Camera3D.cY, 
-			EpZ = Camera3D.cZ,
+			EpZ = 0,
 			Check = true,
 			Degree = 90+(Camera3D.Degree/2),
 			AddDegre = Camera3D.Degree/Camera3D.Quality;
@@ -3582,7 +3582,7 @@
 						
 						Ignore.push(Wall[2]);
 
-						EpZ = -(Wall[4].RHeight+Wall[4].RPZ);	
+						EpZ = Wall[4].RHeight+Wall[4].RPZ;	
 
 						if(Wall[4].Wall)
 						Check = false;
@@ -3623,7 +3623,8 @@
 			for (var x = 0; x < Ignore.length; x++) 
 			if(Ignore[x] == y) Check = false;
 				 
-			if( Check &&
+			if( Check && 
+				((Render3DTD.Objects[y].RHeight+Render3DTD.Objects[y].RPZ) > Pz || Camera3D.Rays[Camera3D.Rays.length-1].length < 1) &&
 				Xm >= Render3DTD.Objects[y].PX &&
 				Ym >= Render3DTD.Objects[y].PY &&  
 				Xm <= Render3DTD.Objects[y].PX+Render3DTD.Objects[y].Width && 
@@ -3775,27 +3776,29 @@
 
 	function OptimDrawHeight(){
 
-		console.log(Camera3D.Rays);
-
 		for (var y = 0; y < Camera3D.Rays.length; y++){
 
-			var Ray = Camera3D.Rays[y],
-				h_S = Camera3D.Rays[y][0].Start,
-				h_Y = Camera3D.Rays[y][0].End;
-
+			var Ray = Camera3D.Rays[y];
+			
 			for (var x = 1; x < Ray.length; x++){
 
-				var check = Camera3D.Rays[y][x].End; // Camera3D.Rays[y][x].Start - Camera3D.Rays[y][x].End;
-
-				if(check > h_S){
+				var check_S = Camera3D.Rays[y][x].Start,
+					check_E = Camera3D.Rays[y][x].End,
+					h_S = Camera3D.Rays[y][x-1].Start,
+					h_E = Camera3D.Rays[y][x-1].End;
+					
+				if(h_S > check_S){
 				
-					//Camera3D.Rays[y][x].End = Camera3D.Rays[y][x-1].Start;
+					//Camera3D.Rays[y][x].Start = JSON.parse(JSON.stringify(Camera3D.Rays[y][x-1].End));
+					//Camera3D.Rays[y][x].End = JSON.parse(JSON.stringify(200));
 
 				}
 				
 			}
 
 		}
+
+		console.log(Camera3D.Rays);
 
 	}
 

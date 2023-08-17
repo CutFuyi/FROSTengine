@@ -11668,7 +11668,7 @@
                 "Speed": 10, // camera speed
                 "WorldHeight": 500, // Overall height by distance indicator
 
-                "Quality": 25, // quality of field of view (number of rays) in X // 250
+                "Quality": 80, // quality of field of view (number of rays) in X // 250
 
                 "Distance": 1000, // distance of field of view (accuracy dependent)
                 "Accuracy": 0.5, // accuracy of field of view
@@ -12195,7 +12195,7 @@
                         "PY": 310,
                         
                         "Render": 1,
-                        "RHeight": 90,
+                        "RHeight": 50,
                         "RPZ": -20,
     
                     },
