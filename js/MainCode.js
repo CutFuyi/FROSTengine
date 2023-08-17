@@ -1095,9 +1095,6 @@
 
 			if(e.key == "u"){
 
-				if(!Render3DTD.TestWalls)
-				Render3DTD.TestWalls = true;
-				else Render3DTD.TestWalls = false;
 
 			}
 
@@ -3353,7 +3350,6 @@
 			Text[MainData.Language].Re2+Render3DTD.Sky,
 			Text[MainData.Language].Re3+Render3DTD.Texture,
 			Text[MainData.Language].Re4+Render3DTD.AlphaNoTexture,
-			Text[MainData.Language].Re5+Render3DTD.TestWalls,
 			Text[MainData.Language].Re6+Render3DTD.Look2D,
 			Text[MainData.Language].Re7+Render3DTD.Look3D,
 			" ",
@@ -3413,8 +3409,8 @@
 						
 							if(Camera3D.Rays[y][x].File)
 							ctx.drawImage(Images[Camera3D.Rays[y][x].File], 
-								Camera3D.Rays[y][x].SX, 0, 
-								Camera3D.Rays[y][x].EX, 630,
+								Camera3D.Rays[y][x].SX, Camera3D.Rays[y][x].TMH_S, 
+								Camera3D.Rays[y][x].EX, Camera3D.Rays[y][x].TMH_E,
 								(y*Camera3D.SWidth/Camera3D.Quality)* MainData.PxW, 
 								Camera3D.Rays[y][x].Start * MainData.PxH, 
 								(1+Camera3D.SWidth/Camera3D.Quality) * MainData.PxW, 
@@ -3510,8 +3506,8 @@
 
 			var MathDegree = RotateVector([X-EpX,Y-EpY], Degree),
 				Angle = -Math.atan2(MathDegree[0], MathDegree[1]),
-				XMove = Math.round(((Camera3D.Accuracy * Math.cos(Angle)) + Number.EPSILON) * 100) / 100,
-				YMove = Math.round(((Camera3D.Accuracy * Math.sin(Angle)) + Number.EPSILON) * 100) / 100;
+				XMove = (Camera3D.Accuracy * Math.cos(Angle)) + Number.EPSILON, //Math.round
+				YMove = (Camera3D.Accuracy * Math.sin(Angle)) + Number.EPSILON; //Math.round
 				
 			for(var x = 0; x < Camera3D.Distance && Check == true; x++){
 	
@@ -3537,7 +3533,7 @@
 
 						File: RenderObjects["Black"].Render.File, 
 						TMW: RenderObjects["Black"].Render.TMW, 
-						TMH: RenderObjects["Black"].Render.TMH, 
+						TMW_2: RenderObjects["Black"].Render.TMW_2, 
 						SX: 0, 
 						EX: 20, 
 						
@@ -3557,13 +3553,8 @@
 						EpX = Wall[0];
 						EpY = Wall[1];
 						
-						if(Render3DTD.TestWalls)
-						Check = false;
-						else if(Camera3D.Rays[Camera3D.Rays.length-1].length > 0 || Wall[4].Alpha)
-						Check = false;
-
 					var Distance = Camera3D.WorldHeight/LineWidth(EpX,EpY,Camera3D.cX,Camera3D.cY);
-
+					
 						Camera3D.Rays[Camera3D.Rays.length-1].push({
 
 							SPX: Camera3D.cX, 
@@ -3580,9 +3571,12 @@
 
 							File: RenderObjects[Wall[4].Render][Wall[3]].File, // file to be rendered
 							TMW: RenderObjects[Wall[4].Render][Wall[3]].TMW, // file width
-							TMH: RenderObjects[Wall[4].Render][Wall[3]].TMH, // file height
+							TMW_2: RenderObjects[Wall[4].Render][Wall[3]].TMW_2, // file width 2 - other wall
 							SX: 0, // start drawing image from file - width
 							EX: 0, // end of drawing image from file - width
+
+							TMH_S: 0, //RenderObjects[Wall[4].Render][Wall[3]].TMH, // file height start
+							TMH_E: RenderObjects[Wall[4].Render][Wall[3]].TMH_2, // file height end
 							
 						});	
 						
@@ -3590,6 +3584,9 @@
 
 						EpZ = -(Wall[4].RHeight+Wall[4].RPZ);	
 
+						if(Wall[4].Wall)
+						Check = false;
+	
 					}
 
 				}
@@ -3613,6 +3610,8 @@
 		if(Render3DTD.Texture)
 		SetTextures();
 
+		OptimDrawHeight();
+
 	}
 
 	function WallCheck(Xm,Ym,Px,Pz,Ignore){
@@ -3624,8 +3623,6 @@
 			for (var x = 0; x < Ignore.length; x++) 
 			if(Ignore[x] == y) Check = false;
 				 
-			// Pz+Camera3D.QualityY > Render3DTD.Objects[y].RPZ && Pz < Render3DTD.Objects[y].RPZ+Render3DTD.Objects[y].RHeight &&
-
 			if( Check &&
 				Xm >= Render3DTD.Objects[y].PX &&
 				Ym >= Render3DTD.Objects[y].PY &&  
@@ -3769,10 +3766,36 @@
 			
 		} else {
 
-			if(Type == 1) return (Obj.EPY-Obj.Data.PY)*(Obj.TMH/Obj.Data.Height);
-			else return (Math.abs(Obj.EPY-(Obj.Data.PY+Obj.Data.Height)))*(Obj.TMH/Obj.Data.Height);
+			if(Type == 1) return (Obj.EPY-Obj.Data.PY)*(Obj.TMW_2/Obj.Data.Height);
+			else return (Math.abs(Obj.EPY-(Obj.Data.PY+Obj.Data.Height)))*(Obj.TMW_2/Obj.Data.Height);
 			
 		} 
+
+	}
+
+	function OptimDrawHeight(){
+
+		console.log(Camera3D.Rays);
+
+		for (var y = 0; y < Camera3D.Rays.length; y++){
+
+			var Ray = Camera3D.Rays[y],
+				h_S = Camera3D.Rays[y][0].Start,
+				h_Y = Camera3D.Rays[y][0].End;
+
+			for (var x = 1; x < Ray.length; x++){
+
+				var check = Camera3D.Rays[y][x].End; // Camera3D.Rays[y][x].Start - Camera3D.Rays[y][x].End;
+
+				if(check > h_S){
+				
+					//Camera3D.Rays[y][x].End = Camera3D.Rays[y][x-1].Start;
+
+				}
+				
+			}
+
+		}
 
 	}
 
@@ -3803,9 +3826,9 @@
 			if(Key == "1") Camera3D.Distance -= 5;
 			if(Key == "2") Camera3D.Distance += 5;
 
-			if(Key == "3") Camera3D.Accuracy -= 0.5;
-			if(Key == "4") Camera3D.Accuracy += 0.5;
-	
+			if(Key == "3") Camera3D.Accuracy -= 0.1;
+			if(Key == "4") Camera3D.Accuracy += 0.1;
+
 		}
 
 	}
@@ -3817,24 +3840,51 @@
 			var MoveY = 0,
 				MoveX = 0;
 
-			if(Keyboard.key.down) MoveY = Camera3D.Speed;
-			if(Keyboard.key.up) MoveY = -Camera3D.Speed;
-			if(Keyboard.key.right) MoveX = Camera3D.Speed;
-			if(Keyboard.key.left) MoveX = -Camera3D.Speed;
-		
-			Camera3D.cX += MoveX;
-			Camera3D.cY += MoveY;
+			if(Camera3D.TopDownControl){
+
+				if(Keyboard.key.down) MoveY = Camera3D.Speed;
+				if(Keyboard.key.up) MoveY = -Camera3D.Speed;
+				if(Keyboard.key.right) MoveX = Camera3D.Speed;
+				if(Keyboard.key.left) MoveX = -Camera3D.Speed;
 			
-			var ActWin = WindowDrawList[WindowDrawList.length-1];
+				Camera3D.cX += MoveX;
+				Camera3D.cY += MoveY;
 			
-			if(WindowList[ActWin].Window.Name == "W18")
-			if( MainData.TouchX > MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX)* MainData.PxW && 
-				MainData.TouchY > MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY)* MainData.PxH && 
-				MainData.TouchX < MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX+Camera3D.SWidth)* MainData.PxW && 
-				MainData.TouchY < MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY+Camera3D.SHeight)* MainData.PxH)
-			Rays(Math.abs(WindowList[ActWin].Window.PX-(MainData.TouchX-MainData.DiffX)/MainData.PxW),
-				 Math.abs(WindowList[ActWin].Window.PY-(MainData.TouchY-MainData.DiffY)/MainData.PxH));
-	   
+				var ActWin = WindowDrawList[WindowDrawList.length-1];
+				
+				if(WindowList[ActWin].Window.Name == "W18")
+				if( MainData.TouchX > MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX)* MainData.PxW && 
+					MainData.TouchY > MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY)* MainData.PxH && 
+					MainData.TouchX < MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX+Camera3D.SWidth)* MainData.PxW && 
+					MainData.TouchY < MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY+Camera3D.SHeight)* MainData.PxH)
+				Rays(Math.abs(WindowList[ActWin].Window.PX-(MainData.TouchX-MainData.DiffX)/MainData.PxW),
+					Math.abs(WindowList[ActWin].Window.PY-(MainData.TouchY-MainData.DiffY)/MainData.PxH));
+	   	
+			} else {
+
+				var Move = 0;
+
+				if(Keyboard.key.left) Camera3D.cAngle += 2.5;
+				if(Keyboard.key.right) Camera3D.cAngle -= 2.5;
+				
+				if(Keyboard.key.down) Move = -Camera3D.Player_Speed;
+				else if(Keyboard.key.up) Move = Camera3D.Player_Speed;
+
+				if(Camera3D.cAngle < 0) Camera3D.cAngle = 359;
+				if(Camera3D.cAngle > 360) Camera3D.cAngle = 0;
+
+				var rad = Camera3D.cAngle * Math.PI / 180;
+				
+					Camera3D.cX += Move * Math.cos(rad);
+					Camera3D.cY += -Move * Math.sin(rad);
+
+					var x = Camera3D.cX + 1 * Math.cos(rad);
+					var y = Camera3D.cY - 1 * Math.sin(rad);
+				
+				Rays(x,y);
+
+			}
+
 		} else {
 
 			if(Render3DTD.TestCamera.Counter == -1){

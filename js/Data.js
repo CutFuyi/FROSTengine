@@ -8653,7 +8653,6 @@
                     "Re2": ["[r] Niebo i Podłoga - "],
                     "Re3": ["[t] Tekstury - "],
                     "Re4": ["[y] Alpha noTexture - "],
-                    "Re5": ["[u] Multi Ściany - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -8685,7 +8684,6 @@
                     "Re2": ["[r] Sky & Floor - "],
                     "Re3": ["[t] Texture - "],
                     "Re4": ["[y] Alpha noTexture - "],
-                    "Re5": ["[u] Multi Walls - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -11663,30 +11661,33 @@
             
         var Camera3D = {
 
-                "Sky": 515,
+                "Sky": 450,
 
                 "Rays":[], // List of rays to be rendered
 
                 "Speed": 10, // camera speed
                 "WorldHeight": 500, // Overall height by distance indicator
 
-                "Quality": 600, // quality of field of view (number of rays) in X
-                "QualityY": 200, // quality of field of view (how much max up by cY) in Y 
+                "Quality": 25, // quality of field of view (number of rays) in X // 250
 
-                "Distance": 580, // distance of field of view (accuracy dependent)
-                "Accuracy": 1, // accuracy of field of view
-                "Degree": 70, // radius
+                "Distance": 1000, // distance of field of view (accuracy dependent)
+                "Accuracy": 0.5, // accuracy of field of view
+                "Degree": 60, // radius
 
-                "cZ": 20, // z camera
+                "cZ": 45, // z camera
                 "cX": 0, // x camera
                 "cY": 0, // y camera
-                
+                "cAngle": 0, // angle camera (Only FPS control mode)
+
                 "SHeight": 750, // height of the displayed image
                 "SWidth": 1116, // width of the displayed image
 
                 "SPX": 12, // beginning of x image drawing
                 "SPY": 88, // beginning of y image drawing
-                "SPZ": 255, // beginning of z image drawing
+                "SPZ": 340, // beginning of z image drawing
+                
+                "TopDownControl": false, // Top Down control - true, FPS control mode - false
+                "Player_Speed": 5, // Player speed
 
             },
             
@@ -11707,7 +11708,9 @@
 
                         "File": "Back_2",
                         "TMW": 27,
-                        "TMH": 0,
+                        "TMW_2": 27,
+                        "TMH": 630,
+                        "TMH_2": 630,
     
                     }
 
@@ -11719,7 +11722,9 @@
 
                         "File": "Back_2",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11727,7 +11732,9 @@
 
                         "File": "Back_1",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11735,7 +11742,9 @@
 
                         "File": "Back_2",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11743,7 +11752,9 @@
 
                         "File": "Back_1",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11755,7 +11766,9 @@
 
                         "File": "Back_1",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11763,7 +11776,9 @@
 
                         "File": "Back_2",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11771,7 +11786,9 @@
 
                         "File": "Back_1",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11779,7 +11796,9 @@
 
                         "File": "Back_2",
                         "TMW": 710,
+                        "TMW_2": 710,
                         "TMH": 630,
+                        "TMH_2": 630,
 
                     },
 
@@ -11789,13 +11808,12 @@
             
             Render3DTD = {
 
-                "Look2D": true,
+                "Look2D": false,
                 "Look3D": true,
 
                 "AlphaNoTexture": true,
                 "Texture": true,
-                "TestWalls": false,
-                "AutoCam": true,
+                "AutoCam": false,
 
                 "Sky": true,
                 "Floor": true,
@@ -11842,8 +11860,6 @@
 
                     0:{
 
-                        "Alpha": true, // Test Only
-
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11864,9 +11880,6 @@
 
                     1:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11887,9 +11900,6 @@
 
                     2:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11910,9 +11920,6 @@
 
                     3:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11933,9 +11940,6 @@
 
                     4:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11956,9 +11960,6 @@
 
                     5:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -11972,16 +11973,15 @@
                         "PY": 215,
 
                         "Render": 0,
-                        "RHeight": 110,
+                        "RHeight": 410,
                         "RPZ": 0,
+                        
+                        "Wall": true, // dont render behind object, stop rays
     
                     },
 
                     6:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -12002,9 +12002,6 @@
 
                     7:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -12025,9 +12022,6 @@
 
                     8:{
 
-                        
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -12048,9 +12042,6 @@
 
                     9:{
 
-                       
-                        "Alpha": true, // Test Only
-                        
                         "File": "Wall_1",
                         "TMH": 52,
                         "TMW": 52,
@@ -12070,8 +12061,6 @@
                     },
 
                     10:{
-
-                        "Alpha": true, // Test Only
 
                         "File": "Wall_1",
                         "TMH": 52,
@@ -12207,7 +12196,7 @@
                         
                         "Render": 1,
                         "RHeight": 90,
-                        "RPZ": 0,
+                        "RPZ": -20,
     
                     },
 
