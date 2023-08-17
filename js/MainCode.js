@@ -1095,6 +1095,9 @@
 
 			if(e.key == "u"){
 
+				if(!Camera3D.TopDownControl)
+				Camera3D.TopDownControl = true;
+				else Camera3D.TopDownControl = false;
 
 			}
 
@@ -3414,7 +3417,7 @@
 								(y*Camera3D.SWidth/Camera3D.Quality)* MainData.PxW, 
 								Camera3D.Rays[y][x].Start * MainData.PxH, 
 								(1+Camera3D.SWidth/Camera3D.Quality) * MainData.PxW, 
-								(Camera3D.Rays[y][x].Start-Camera3D.Rays[y][x].End) * MainData.PxH);
+								-Camera3D.Rays[y][x].End * MainData.PxH);
 							
 						} else {
 
@@ -3434,7 +3437,7 @@
 										(y*Camera3D.SWidth/Camera3D.Quality)* MainData.PxW, 
 										Camera3D.Rays[y][x].Start * MainData.PxH, 
 										(2+Camera3D.SWidth/Camera3D.Quality) * MainData.PxW, 
-										(Camera3D.Rays[y][x].Start-Camera3D.Rays[y][x].End) * MainData.PxH
+										-Camera3D.Rays[y][x].End * MainData.PxH
 										);
 							ctx.stroke();
 
@@ -3506,8 +3509,8 @@
 
 			var MathDegree = RotateVector([X-EpX,Y-EpY], Degree),
 				Angle = -Math.atan2(MathDegree[0], MathDegree[1]),
-				XMove = (Camera3D.Accuracy * Math.cos(Angle)) + Number.EPSILON, //Math.round
-				YMove = (Camera3D.Accuracy * Math.sin(Angle)) + Number.EPSILON; //Math.round
+				XMove = (Camera3D.Accuracy * Math.cos(Angle)) + Number.EPSILON,
+				YMove = (Camera3D.Accuracy * Math.sin(Angle)) + Number.EPSILON;
 				
 			for(var x = 0; x < Camera3D.Distance && Check == true; x++){
 	
@@ -3563,7 +3566,7 @@
 							EPY: EpY,
 							
 							Start: Distance*(Wall[4].RPZ+Camera3D.cZ), 
-							End: Distance*(Wall[4].RHeight+Wall[4].RPZ+Camera3D.cZ), 
+							End: Distance*(Wall[4].RHeight), 
 
 							Data: Wall[4], // Object data
 							Num: Wall[2], // object number
@@ -3786,20 +3789,27 @@
 					check_E = Camera3D.Rays[y][x].End,
 					h_S = Camera3D.Rays[y][x-1].Start,
 					h_E = Camera3D.Rays[y][x-1].End;
-					
-				if(h_S > check_S){
 				
-					//Camera3D.Rays[y][x].Start = JSON.parse(JSON.stringify(Camera3D.Rays[y][x-1].End));
-					//Camera3D.Rays[y][x].End = JSON.parse(JSON.stringify(200));
+				if(h_S > check_S && check_E < h_E){
+
+					Camera3D.Rays[y][x].End = 0;
+					Camera3D.Rays[y][x].Start = 0;
+
+				} else if(check_E > h_E){
+				
+					var Wall_H_Full = JSON.parse(JSON.stringify(Camera3D.Rays[y][x].End));
+
+					Camera3D.Rays[y][x].End = Math.abs(JSON.parse(JSON.stringify((Camera3D.Rays[y][x-1].Start-Camera3D.Rays[y][x-1].End)-(Camera3D.Rays[y][x].Start-Camera3D.Rays[y][x].End))));
+					Camera3D.Rays[y][x].Start = JSON.parse(JSON.stringify(Camera3D.Rays[y][x-1].Start-Camera3D.Rays[y][x-1].End));
+				
+					Camera3D.Rays[y][x].TMH_E = Camera3D.Rays[y][x].TMH_E*((Camera3D.Rays[y][x].End/Wall_H_Full));
 
 				}
 				
 			}
 
 		}
-
-		console.log(Camera3D.Rays);
-
+		
 	}
 
 	// Hero Control
