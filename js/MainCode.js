@@ -3353,6 +3353,7 @@
 			Text[MainData.Language].Re2+Render3DTD.Sky,
 			Text[MainData.Language].Re3+Render3DTD.Texture,
 			Text[MainData.Language].Re4+Render3DTD.AlphaNoTexture,
+			Text[MainData.Language].Re5+Camera3D.TopDownControl,
 			Text[MainData.Language].Re6+Render3DTD.Look2D,
 			Text[MainData.Language].Re7+Render3DTD.Look3D,
 			" ",

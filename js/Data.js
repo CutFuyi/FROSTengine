@@ -16,6 +16,9 @@
             "Wall_1": document.createElement("img"),
             "Wall_2": document.createElement("img"),
             
+            "Back_1_1": document.createElement("img"),
+            "Back_2_1": document.createElement("img"),
+
             // Paski
 
             "Red": document.createElement("img"),
@@ -211,6 +214,9 @@
         Images.Back_2.src = "img/Render3D/Back_2.png";
         Images.Wall_1.src = "img/Render3D/Wall_1.png";
         Images.Wall_2.src = "img/Render3D/Wall_2.png";
+
+        Images.Back_1_1.src = "img/Render3D/Back_1_1.png";
+        Images.Back_2_1.src = "img/Render3D/Back_2_1.png";
 
         // Paski
 
@@ -8653,6 +8659,7 @@
                     "Re2": ["[r] Niebo i Podłoga - "],
                     "Re3": ["[t] Tekstury - "],
                     "Re4": ["[y] Alpha noTexture - "],
+                    "Re5": ["[u] TopDownControl - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -8684,6 +8691,7 @@
                     "Re2": ["[r] Sky & Floor - "],
                     "Re3": ["[t] Texture - "],
                     "Re4": ["[y] Alpha noTexture - "],
+                    "Re5": ["[u] TopDownControl - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -11804,6 +11812,50 @@
 
                 },
 
+                2:{ 
+
+                    0:{
+
+                        "File": "Back_1_1",
+                        "TMW": 710,
+                        "TMW_2": 710,
+                        "TMH": 1260,
+                        "TMH_2": 1260,
+
+                    },
+
+                    1:{
+
+                        "File": "Back_2_1",
+                        "TMW": 710,
+                        "TMW_2": 710,
+                        "TMH": 1260,
+                        "TMH_2": 1260,
+
+                    },
+
+                    2:{
+
+                        "File": "Back_1_1",
+                        "TMW": 710,
+                        "TMW_2": 710,
+                        "TMH": 1260,
+                        "TMH_2": 1260,
+
+                    },
+
+                    3:{
+
+                        "File": "Back_2_1",
+                        "TMW": 710,
+                        "TMW_2": 710,
+                        "TMH": 1260,
+                        "TMH_2": 1260,
+
+                    },
+
+                },
+
             },
             
             Render3DTD = {
@@ -11972,8 +12024,8 @@
                         "PX": 460,
                         "PY": 215,
 
-                        "Render": 0,
-                        "RHeight": 410,
+                        "Render": 2,
+                        "RHeight": 220,
                         "RPZ": 0,
                         
                         "Wall": true, // dont render behind object, stop rays
