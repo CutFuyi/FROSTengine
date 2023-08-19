@@ -669,6 +669,8 @@
                 "InfoWindow": null,
 
                 "Mouse": 0,
+                "Mouse_Vectors": [0,0],
+                "Mouse_Vectors_Save": [0,0],
 
                 "Width": 0,
                 "Height": 0,
@@ -8660,6 +8662,7 @@
                     "Re3": ["[t] Tekstury - "],
                     "Re4": ["[y] Alpha noTexture - "],
                     "Re5": ["[u] TopDownControl - "],
+                    "Re5_1": ["[p] MouseControl - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -8692,6 +8695,7 @@
                     "Re3": ["[t] Texture - "],
                     "Re4": ["[y] Alpha noTexture - "],
                     "Re5": ["[u] TopDownControl - "],
+                    "Re5_1": ["[p] MouseControl - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -11669,7 +11673,7 @@
             
         var Camera3D = {
 
-                "Sky": 450,
+                "Sky": 450, // Sky Draw Height
 
                 "Rays":[], // List of rays to be rendered
 
@@ -11692,10 +11696,19 @@
 
                 "SPX": 12, // beginning of x image drawing
                 "SPY": 88, // beginning of y image drawing
-                "SPZ": 340, // beginning of z image drawing
+                "SPZ": 350, // beginning of z image drawing
                 
                 "TopDownControl": false, // Top Down control - true, FPS control mode - false
+                "Keyboard_Mouse_Control": false, // Keyboard Only - false, Mouse + Keyboard - true
+
                 "Player_Speed": 5, // Player speed
+                "Camera_X_Speed": 0.45, // Camera X speed
+                "Camera_Y_Speed": 0.3, // Camera Y speed
+                
+                "Camera_Default_Boundries": [45, 450, 350], // Camera Boundries Default - cZ, Sky, SPZ
+                "Camera_Max_Boundries": [5, 900, -450], // Camera Boundries Max
+                "Camera_Min_Boundries": [95, 0, 750], // Camera Boundries Min
+                "Camera_Math_Boundries": [1, 10, 10], // Camera Boundries Math Speed
 
             },
             

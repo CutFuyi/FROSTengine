@@ -1093,6 +1093,18 @@
 
 			}
 
+			if(e.key == "p"){
+
+				if(!Camera3D.Keyboard_Mouse_Control)
+				Camera3D.Keyboard_Mouse_Control = true;
+				else Camera3D.Keyboard_Mouse_Control = false;
+				
+				Camera3D.cZ = Camera3D.Camera_Default_Boundries[0];
+				Camera3D.Sky = Camera3D.Camera_Default_Boundries[1];
+				Camera3D.SPZ = Camera3D.Camera_Default_Boundries[2];
+
+			}
+
 			if(e.key == "u"){
 
 				if(!Camera3D.TopDownControl)
@@ -3354,6 +3366,7 @@
 			Text[MainData.Language].Re3+Render3DTD.Texture,
 			Text[MainData.Language].Re4+Render3DTD.AlphaNoTexture,
 			Text[MainData.Language].Re5+Camera3D.TopDownControl,
+			Text[MainData.Language].Re5_1+Camera3D.Keyboard_Mouse_Control,
 			Text[MainData.Language].Re6+Render3DTD.Look2D,
 			Text[MainData.Language].Re7+Render3DTD.Look3D,
 			" ",
@@ -3780,6 +3793,8 @@
 
 	function OptimDrawHeight(){
 
+		return;
+
 		for (var y = 0; y < Camera3D.Rays.length; y++){
 
 			var Ray = Camera3D.Rays[y];
@@ -3876,26 +3891,104 @@
 	   	
 			} else {
 
-				var Move = 0;
+				if(!Camera3D.Keyboard_Mouse_Control){
 
-				if(Keyboard.key.left) Camera3D.cAngle += 2.5;
-				if(Keyboard.key.right) Camera3D.cAngle -= 2.5;
-				
-				if(Keyboard.key.down) Move = -Camera3D.Player_Speed;
-				else if(Keyboard.key.up) Move = Camera3D.Player_Speed;
+					var Move = 0;
 
-				if(Camera3D.cAngle < 0) Camera3D.cAngle = 359;
-				if(Camera3D.cAngle > 360) Camera3D.cAngle = 0;
+					if(Keyboard.key.left) Camera3D.cAngle += 2.5;
+					if(Keyboard.key.right) Camera3D.cAngle -= 2.5;
+					
+					if(Keyboard.key.down) Move = -Camera3D.Player_Speed;
+					else if(Keyboard.key.up) Move = Camera3D.Player_Speed;
+	
+					if(Camera3D.cAngle < 0) Camera3D.cAngle = 359;
+					if(Camera3D.cAngle > 360) Camera3D.cAngle = 0;
+	
+					var rad = Camera3D.cAngle * Math.PI / 180;
+					
+						Camera3D.cX += Move * Math.cos(rad);
+						Camera3D.cY += -Move * Math.sin(rad);
+	
+						var x = Camera3D.cX + 1 * Math.cos(rad);
+						var y = Camera3D.cY - 1 * Math.sin(rad);
+					
+					Rays(x,y);
+	
+				} else {
 
-				var rad = Camera3D.cAngle * Math.PI / 180;
-				
-					Camera3D.cX += Move * Math.cos(rad);
-					Camera3D.cY += -Move * Math.sin(rad);
+					if(MainData.Mouse_Vectors_Save[0] != MainData.TouchX) MainData.Mouse_Vectors[0] = MainData.TouchX-MainData.Mouse_Vectors_Save[0];
+					else MainData.Mouse_Vectors[0] = 0;
+	
+                    if(MainData.Mouse_Vectors_Save[1] != MainData.TouchY) { 
 
-					var x = Camera3D.cX + 1 * Math.cos(rad);
-					var y = Camera3D.cY - 1 * Math.sin(rad);
-				
-				Rays(x,y);
+                        MainData.Mouse_Vectors[1] = MainData.TouchY-MainData.Mouse_Vectors_Save[1];
+    
+                        if(MainData.Mouse_Vectors[1] > 0) MainData.Mouse_Vectors[1] = 1;
+                        else MainData.Mouse_Vectors[1] = -1;
+                    
+                    } else MainData.Mouse_Vectors[1] = 0;
+    
+					MainData.Mouse_Vectors_Save = [MainData.TouchX,MainData.TouchY];
+	
+					var Move_Front = 0, 
+						Move_Side = 0;
+
+					if(Keyboard.key.down) Move_Front = -Camera3D.Player_Speed;
+					else if(Keyboard.key.up) Move_Front = Camera3D.Player_Speed;
+	
+					if(Keyboard.key.left) Move_Side = -Camera3D.Player_Speed;
+					else if(Keyboard.key.right) Move_Side = Camera3D.Player_Speed;
+					
+					Camera3D.cAngle -= MainData.Mouse_Vectors[0]*Camera3D.Camera_X_Speed;
+					
+						Camera3D.Camera_Math_Boundries[0] = ((Math.abs(Camera3D.Camera_Max_Boundries[0])+Math.abs(Camera3D.Camera_Min_Boundries[0]))/10)*Camera3D.Camera_Y_Speed;
+						Camera3D.Camera_Math_Boundries[1] = ((Math.abs(Camera3D.Camera_Max_Boundries[1])+Math.abs(Camera3D.Camera_Min_Boundries[1]))/10)*Camera3D.Camera_Y_Speed;
+						Camera3D.Camera_Math_Boundries[2] = ((Math.abs(Camera3D.Camera_Max_Boundries[2])+Math.abs(Camera3D.Camera_Min_Boundries[2]))/10)*Camera3D.Camera_Y_Speed; //(Camera3D.Camera_Max_Boundries[2]-Camera3D.Camera_Default_Boundries[2])*
+
+					if(Camera3D.cZ < Camera3D.Camera_Max_Boundries[0]) Camera3D.cZ = Camera3D.Camera_Max_Boundries[0];
+					else if(Camera3D.cZ > Camera3D.Camera_Min_Boundries[0]) Camera3D.cZ = Camera3D.Camera_Min_Boundries[0];
+					else Camera3D.cZ -= MainData.Mouse_Vectors[1]*Camera3D.Camera_Math_Boundries[0];
+
+					if(Camera3D.Sky > Camera3D.Camera_Max_Boundries[1]) Camera3D.Sky = Camera3D.Camera_Max_Boundries[1];
+					else if(Camera3D.Sky < Camera3D.Camera_Min_Boundries[1]) Camera3D.Sky = Camera3D.Camera_Min_Boundries[1];
+					else Camera3D.Sky -= MainData.Mouse_Vectors[1]*Camera3D.Camera_Math_Boundries[1];
+
+					if(Camera3D.SPZ < Camera3D.Camera_Max_Boundries[2]) Camera3D.SPZ = Camera3D.Camera_Max_Boundries[2];
+					else if(Camera3D.SPZ > Camera3D.Camera_Min_Boundries[2]) Camera3D.SPZ = Camera3D.Camera_Min_Boundries[2];
+					else Camera3D.SPZ += MainData.Mouse_Vectors[1]*Camera3D.Camera_Math_Boundries[2];
+						
+					if(Camera3D.cAngle < 0) Camera3D.cAngle = 359;
+					if(Camera3D.cAngle > 360) Camera3D.cAngle = 0;
+	
+					var rad = Camera3D.cAngle * Math.PI / 180;
+
+						Camera3D.cX += Move_Front * Math.cos(rad);
+						Camera3D.cY += -Move_Front * Math.sin(rad);
+
+						if(Move_Side != 0){
+
+							var Angle2 = Camera3D.cAngle-90;
+
+							if(Angle2 < 0) Angle2 = 359+Angle2;
+							if(Angle2 > 360) Angle2 = 0-Angle2;
+							
+							var rad2 = Angle2 * Math.PI / 180;
+		
+							Camera3D.cX += Move_Side * Math.cos(rad2);
+							Camera3D.cY += -Move_Side * Math.sin(rad2);
+
+						}
+
+						var x = Camera3D.cX + 1 * Math.cos(rad);
+						var y = Camera3D.cY - 1 * Math.sin(rad);
+					
+					Rays(x,y);
+
+					console.log(Camera3D.Sky/(Camera3D.Camera_Max_Boundries[1]+Camera3D.Camera_Min_Boundries[1]));
+
+					console.log();
+
+				}
 
 			}
 

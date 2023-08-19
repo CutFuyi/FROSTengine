@@ -1,4 +1,4 @@
-    
+   
     window.addEventListener("load", function(){ 
         
         LoadEngine();
@@ -342,6 +342,8 @@
         if(!MainData.Mobile) DrawMouse();
         
         TimeInter.UpdateScreen = requestAnimationFrame(UpdateScreen);
+       
+        MainData.Mouse_Vectors = [0,0];
 
 	}
 
