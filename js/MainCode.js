@@ -1249,7 +1249,18 @@
 					   Math.abs(WindowList[WindowDrawList[WindowDrawList.length-1]].Window.PY-(MainData.TouchY-MainData.DiffY)/MainData.PxH));
 		
 			}
-			
+		
+			var ActWin = WindowDrawList[WindowDrawList.length-1];
+				
+			if(WindowList[ActWin].Window.Name == "W18" && Camera3D.Keyboard_Mouse_Control)
+			if( MainData.TouchX > MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX)* MainData.PxW && 
+				MainData.TouchY > MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY)* MainData.PxH && 
+				MainData.TouchX < MainData.DiffX+(WindowList[ActWin].Window.PX+Camera3D.SPX+Camera3D.SWidth)* MainData.PxW && 
+				MainData.TouchY < MainData.DiffY+(WindowList[ActWin].Window.PY+Camera3D.SPY+Camera3D.SHeight)* MainData.PxH)
+				MainData.DrawMouse = false; 
+			else MainData.DrawMouse = true;
+			else MainData.DrawMouse = true;
+
 		}
 		
 	}
@@ -3372,10 +3383,10 @@
 			" ",
 			Text[MainData.Language].Re8+Math.round(Camera3D.cX),
 			Text[MainData.Language].Re9+Math.round(Camera3D.cY),
-			Text[MainData.Language].Re10+Camera3D.cZ,
+			Text[MainData.Language].Re10+Math.round(Camera3D.cZ),
 			Text[MainData.Language].Re11+Camera3D.Degree,
 			Text[MainData.Language].Re12+Camera3D.WorldHeight,
-			Text[MainData.Language].Re13+Camera3D.Sky,
+			Text[MainData.Language].Re13+Math.round(Camera3D.Sky),
 			" ",
 			Text[MainData.Language].Re14+Camera3D.Speed,
 			Text[MainData.Language].Re15+Camera3D.Quality,
@@ -3384,7 +3395,7 @@
 			Text[MainData.Language].Re18+Camera3D.SHeight,
 			Text[MainData.Language].Re19+Camera3D.SWidth,
 			"",
-			Text[MainData.Language].Re20+Camera3D.SPX,
+			Text[MainData.Language].Re20+Math.round(Camera3D.SPX),
 			Text[MainData.Language].Re21+Camera3D.SPY,
 			Text[MainData.Language].Re22+Camera3D.SPZ,
 		];
@@ -3601,8 +3612,8 @@
 
 						EpZ = Wall[4].RHeight+Wall[4].RPZ;	
 
-						if(Wall[4].Wall)
-						Check = false;
+						//if(Wall[4].Wall)
+						//Check = false;
 	
 					}
 
@@ -3984,9 +3995,9 @@
 					
 					Rays(x,y);
 
-					console.log(Camera3D.Sky/(Camera3D.Camera_Max_Boundries[1]+Camera3D.Camera_Min_Boundries[1]));
+					//console.log(Camera3D.Sky/(Camera3D.Camera_Max_Boundries[1]+Camera3D.Camera_Min_Boundries[1]));
 
-					console.log();
+					//console.log();
 
 				}
 

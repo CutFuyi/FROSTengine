@@ -339,7 +339,7 @@
             
         ctx.restore();
         
-        if(!MainData.Mobile) DrawMouse();
+        if(!MainData.Mobile && MainData.DrawMouse) DrawMouse();
         
         TimeInter.UpdateScreen = requestAnimationFrame(UpdateScreen);
        

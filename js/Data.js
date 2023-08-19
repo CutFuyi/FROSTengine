@@ -671,6 +671,7 @@
                 "Mouse": 0,
                 "Mouse_Vectors": [0,0],
                 "Mouse_Vectors_Save": [0,0],
+                "DrawMouse": true,
 
                 "Width": 0,
                 "Height": 0,
@@ -11703,10 +11704,10 @@
 
                 "Player_Speed": 5, // Player speed
                 "Camera_X_Speed": 0.45, // Camera X speed
-                "Camera_Y_Speed": 0.3, // Camera Y speed
+                "Camera_Y_Speed": 0.45, // Camera Y speed
                 
                 "Camera_Default_Boundries": [45, 450, 350], // Camera Boundries Default - cZ, Sky, SPZ
-                "Camera_Max_Boundries": [5, 900, -450], // Camera Boundries Max
+                "Camera_Max_Boundries": [5, 1270, -450], // Camera Boundries Max
                 "Camera_Min_Boundries": [95, 0, 750], // Camera Boundries Min
                 "Camera_Math_Boundries": [1, 10, 10], // Camera Boundries Math Speed
 
