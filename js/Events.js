@@ -1023,3 +1023,9 @@
 	}
 
 	function backButton() { return false; }
+
+    
+    // If naprawić żeby nie skakał
+    // dodać ify przy usuwaniu lini za
+    // naprawić if który zamyka promień błędnie
+    // dodać podnoszenie i zaniżanie kamery dla klawiatury
