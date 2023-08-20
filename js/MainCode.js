@@ -3467,7 +3467,18 @@
 							ctx.stroke();
 
 						}
-						
+					
+						//for (var y = 0; y < Camera3D.Rays.length; y++)
+						//for (var x = Camera3D.Rays[y].length-1; x > -1; x--)
+						//if(Camera3D.Rays[y][x].File){
+
+						//	ctx.beginPath();
+						//	ctx.moveTo((y*Camera3D.SWidth/Camera3D.Quality)* MainData.PxW, (Camera3D.Rays[y][x].Start-Camera3D.Rays[y][x].End) * MainData.PxH);
+						//	ctx.lineTo(300, 100);
+						//	ctx.stroke();
+
+						//}
+	
 					ctx.closePath();
 					ctx.restore();
 
@@ -3592,6 +3603,9 @@
 							
 							Start: Distance*(Wall[4].RPZ+Camera3D.cZ), 
 							End: Distance*(Wall[4].RHeight), 
+
+							//End_Wall_X: (Camera3D.WorldHeight/LineWidth(EpX+Wall[4].Width,EpY,Camera3D.cX,Camera3D.cY))*(Wall[4].RPZ+Camera3D.cZ+Wall[4].RHeight),
+							//End_Wall_Y: (Camera3D.WorldHeight/LineWidth(EpX,EpY+Wall[4].Height,Camera3D.cX,Camera3D.cY))*(Wall[4].RPZ+Camera3D.cZ+Wall[4].RHeight),
 
 							Data: Wall[4], // Object data
 							Num: Wall[2], // object number
