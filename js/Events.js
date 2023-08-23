@@ -1068,6 +1068,9 @@
         Poprawić nazwy i ich miejsce użycia w Render 3D - kamera itd. 
         Bardziej optymalny system Open World, lepsze zarządzanie danymi i ich przechowywanie.
         Połączenie Open World z Render 3D
+        Render 3D, zmienić linie na rysowanie pixeli.
+        Rysowanie podłogi pixelami, dać render na podsatwie bitów lub prawdziwej grafiki pobranej z open world
+        autowypełnieniepowtórka tekstur jako opcja w obiekcie dla długich ścian z powtarzalną teksturą
 
         Pełna gra pod Electron / Neutralino Js.
         https://www.electronjs.org/
