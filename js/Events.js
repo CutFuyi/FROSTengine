@@ -1077,4 +1077,6 @@
         https://neutralino.js.org/
         https://www.w3resource.com/javascript-exercises/javascript-basic-exercise-120.php
 
+        chunk FileSize i Size osobno
+
     */
