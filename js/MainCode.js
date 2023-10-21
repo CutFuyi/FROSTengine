@@ -3638,7 +3638,7 @@
 		if(Render3DTD.Texture)
 		SetTextures();
 
-		OptimDrawHeight();
+		//OptimDrawHeight();
 
 	}
 

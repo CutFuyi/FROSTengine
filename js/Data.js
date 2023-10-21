@@ -654,7 +654,7 @@
                 "Mobile": false,
                 "StartWindow": 0, // 20
                 "Orientation": "Landscape", //Landscape Portrait
-                "AppVersion": "1.0.1",
+                "AppVersion": "1.0.2",
                 "EngineVersion": "1.0.1",
                 "ScreenType": "16:9", // 16:9 liczy jako 16:8
                 "BlockRClick": true,
@@ -8576,7 +8576,7 @@
                     42: ["Formularz - Lewa Myszka Start / Enter Stop"],     
                     43: ["Dzwięk +"],      
                     46: ["---"],      
-                    47: ["Render 3D Ver 0.20"],   
+                    47: ["Render 3D Ver 0.23"],   
                     49: ["Render 3D - Obszar Testowy"],    
                     50: ["Dzwięk"],     
                     51: ["Test tekstów z kilkoma wierszami","1. Wiersz Pierwszy", "2. Wiersz Drugi"], 
@@ -8662,8 +8662,8 @@
                     "Re2": ["[r] Niebo i Podłoga - "],
                     "Re3": ["[t] Tekstury - "],
                     "Re4": ["[y] Alpha noTexture - "],
-                    "Re5": ["[u] TopDownControl - "],
-                    "Re5_1": ["[p] MouseControl - "],
+                    "Re5": ["[u] SterowanieLotPtaka - "],
+                    "Re5_1": ["[p] SterowanieMyszka - "],
                     "Re6": ["[i] 2D Render - "],
                     "Re7": ["[o] 3D Render - "],
 
@@ -8821,7 +8821,7 @@
                     42: ["Form - Left Mouse Start / Enter Stop"],     
                     43: ["Sound +"],      
                     46: ["---"],      
-                    47: ["Render 3D Ver 0.20"],   
+                    47: ["Render 3D Ver 0.23"],   
                     49: ["Render 3D - Test Area"],    
                     50: ["Sound"],     
                     51: ["Multi-line text test", "1st Line First", "2nd Line Second"], 
@@ -11879,7 +11879,7 @@
 
                 "AlphaNoTexture": true,
                 "Texture": true,
-                "AutoCam": false,
+                "AutoCam": true,
 
                 "Sky": true,
                 "Floor": true,
