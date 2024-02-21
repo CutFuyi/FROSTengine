@@ -8678,8 +8678,8 @@
                     "Re15": ["[z,x] Jakość Kamery - "],
                     "Re16": ["[1,2] Zasięg Kamery - "],
                     "Re17": ["[3,4] Precyzja Kamery - "],
-                    "Re18": ["[] SWyskość Kamery - "],
-                    "Re19": ["[] SSzerkość Kamery - "],
+                    "Re18": ["[] SWysokość Kamery - "],
+                    "Re19": ["[] SSzerokość Kamery - "],
 
                     "Re20": ["[] Kamera S Rysuj X - "],
                     "Re21": ["[] Kamera S Rysuj Y - "],
